@@ -1,0 +1,58 @@
+{
+   "products": [
+      {
+         "id": "1",
+         "name": "MacBook",
+         "price": 140000,
+         "image": "https://picsum.photos/id/180/2400/1600"
+      },
+      {
+         "id": "2",
+         "name": "Car",
+         "price": 657800,
+         "image": "https://picsum.photos/id/1071/3000/1996"
+      },
+      {
+         "id": "3",
+         "name": "Shoes",
+         "price": 1800,
+         "image": "https://picsum.photos/id/21/3008/2008"
+      },
+      {
+         "id": "4",
+         "name": "Jacket",
+         "price": 10800,
+         "image": "https://picsum.photos/id/1005/5760/3840"
+      },
+      {
+         "id": "5",
+         "name": "Holy Bible",
+         "price": 800,
+         "image": "https://picsum.photos/id/1010/5184/3456"
+      },
+      {
+         "id": "6",
+         "name": "Shoes",
+         "price": 2200,
+         "image": "https://picsum.photos/id/103/2592/1936"
+      },
+      {
+         "id": "7",
+         "name": "Old Car",
+         "price": 334800,
+         "image": "https://picsum.photos/id/1072/3872/2592"
+      },
+      {
+         "id": "8",
+         "name": "Piano",
+         "price": 40000,
+         "image": "https://picsum.photos/id/1082/5416/3611"
+      },
+      {
+         "id": "10",
+         "name": "Car",
+         "price": 240000,
+         "image": "https://picsum.photos/id/111/4400/2656"
+      }
+   ]
+}

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<DocumentFragment>
+  <div
+    style="text-align: center;"
+  >
+    <h2>
+      Oops, Please see you have typed the correct link.
+    </h2>
+    <a
+      href="/"
+    >
+      Shopping Cart
+    </a>
+  </div>
+</DocumentFragment>
+`;
