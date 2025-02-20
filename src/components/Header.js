@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import React, { memo } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 
 function Header(props) {
   const history = useHistory();
@@ -13,14 +13,18 @@ function Header(props) {
       </div>
       <div>
         <a href="#/cart">
-          Cart{' '}
+          Cart
           {props.countCartItems ? (
             <button className="badge">{props.countCartItems}</button>
           ) : (
-            ''
+            ""
           )}
         </a>
-        {history.location.state ? `Hello ${history.location.state.user}` : <NavLink to="/signIn">Sign In</NavLink>}
+        {history.location.state ? (
+          `Hello ${history.location.state.user}`
+        ) : (
+          <NavLink to="/signIn">Sign In</NavLink>
+        )}
       </div>
     </header>
   );

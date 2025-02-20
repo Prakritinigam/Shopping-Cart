@@ -1,15 +1,19 @@
 {
   "name": "shopping-cart",
-  "homepage": "https://AkashSrivastava1993.github.io/shopping-cart",
+  "homepage": "https://Prakritinigam.github.io/Shopping-Cart",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8003",
   "dependencies": {
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "gh-pages": "^3.2.1",
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "mobx": "^6.3.2",
     "mobx-react-lite": "^3.2.0",
+    "mongoose": "^6.9.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
@@ -44,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
   }
 }

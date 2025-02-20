@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import Header from "./Header";
+import axios from "axios";
 import Dashboard from "./Dashboard";
 import Basket from "./Basket";
 import {
@@ -35,24 +36,26 @@ function Main(props) {
   useEffect(() => {
     document.title = mobxStore.mobxTitle;
   });
-useEffect(() => {
-  document.title = mobxStore.mobxTitle;
-}, []);
+  useEffect(() => {
+    document.title = mobxStore.mobxTitle;
+  }, []);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      console.log("Fetching products...");
+      try {
+        const response = await axios.get("/products"); // ✅ No need to check response.ok
+        setProducts(response.data); // ✅ response.data is already parsed
+      } catch (error) {
+        console.error("Error fetching products:", error.message);
+      }
+    };
 
-useEffect(() => {
-  document.body.style.backgroundColor = props.theme;
-  fetch("https://fakestoreapi.com/products", {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  }) // Fetch data from FakeStore API
-    .then((resp) => resp.json())
-    .then((data) => {
-      setProducts(data); // Update state with API data
-    })
-    .catch((error) => console.error("Error fetching products:", error));
-}, [props.theme]);
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = props.theme;
+  }, [props.theme]);
 
   const [cartItems, setCartItems] = useState([]);
 
@@ -129,14 +132,17 @@ useEffect(() => {
     <div>
       {layoutEffect}
       <Header countCartItems={cartItems.length}></Header>
-      <div className="toggle">
+      <div
+        className="toggle"
+        style={{ color: props.theme === "white" ? "black" : "white" }}
+      >
         <label htmlFor="cheese-status">Select Theme:</label>
         <Toggle
           id="theme-status"
           defaultChecked={true}
           onChange={() => {
             props.theme === "white"
-              ? props.setTheme("brown")
+              ? props.setTheme("black")
               : props.setTheme("white");
           }}
         />

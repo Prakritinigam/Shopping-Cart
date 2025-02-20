@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import axios from "axios";
+import React, { useEffect, useMemo } from "react";
 import { useHistory } from "react-router-dom";
 
 export default function Basket(props) {
   const history = useHistory();
-  const [to, setTo] = useState("");
+  // const [to, setTo] = useState("");
   const { cartItems, setCartItems, onAdd, onRemove } = props;
   const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.price, 0);
   const taxPrice = itemsPrice * 0.14;
@@ -22,13 +23,14 @@ export default function Basket(props) {
 
   const enterPhn = (e) => {
     console.log(e.target.value);
-    setTo(e.target.value);
+    // setTo(e.target.value);
   };
   useEffect(() => {
     const savedItems = localStorage.getItem("cart");
     if (savedItems) {
       setCartItems(JSON.parse(savedItems));
     }
+    console.log(savedItems);
   }, [setCartItems]);
 
   useEffect(() => {
@@ -39,36 +41,58 @@ export default function Basket(props) {
     localStorage.removeItem("cart");
     setCartItems([]);
   };
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    let confirmOrder = window.confirm(
-      "Are you sure you want to place the order?"
-    );
-    if (confirmOrder && to !== "") {
-      fetch(
-        "https://api.twilio.com/2010-04-01/Accounts/" +
-          process.env.REACT_APP_TWILIO_ACCOUNT_SID +
-          "/Messages.json",
-        {
-          method: "POST",
-          headers: {
-            Authorization:
-              "Basic " +
-              btoa(
-                process.env.REACT_APP_TWILIO_ACCOUNT_SID +
-                  ":" +
-                  process.env.REACT_APP_TWILIO_AUTH_TOKEN
-              ),
-          },
-          body: new URLSearchParams({
-            To: to,
-            Body: "Item has been dispatched. It will be at your door soon from Shopping Cart.",
-            From: process.env.REACT_APP_TWILIO_PHONE_NUMBER,
-          }),
-        }
-      );
-      history.push("/ordered");
+    // let confirmOrder = window.confirm(
+    //   "Are you sure you want to place the order?"
+    // );
+    const cartData = JSON.parse(localStorage.getItem("cart"));
+
+    if (cartData.length === 0) {
+      alert("Cart is Empty !!");
+      return;
     }
+
+    try {
+      const response = await axios.post("/orderPlaced", {
+        cartItems: cartData,
+        totalPrice: totalPrice,
+      });
+      if (response.status === 200) {
+        history.push("/ordered");
+        alert("Order Placed Successfully");
+        localStorage.removeItem("cart");
+      }
+    } catch (error) {
+      console.error("failed to order", error);
+      alert("Failed to place order !! try again..");
+    }
+
+    // if (confirmOrder && to !== "") {
+    //   fetch(
+    //     "https://api.twilio.com/2010-04-01/Accounts/" +
+    //       process.env.REACT_APP_TWILIO_ACCOUNT_SID +
+    //       "/Messages.json",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         Authorization:
+    //           "Basic " +
+    //           btoa(
+    //             process.env.REACT_APP_TWILIO_ACCOUNT_SID +
+    //               ":" +
+    //               process.env.REACT_APP_TWILIO_AUTH_TOKEN
+    //           ),
+    //       },
+    //       body: new URLSearchParams({
+    //         To: to,
+    //         Body: "Item has been dispatched. It will be at your door soon from Shopping Cart.",
+    //         From: process.env.REACT_APP_TWILIO_PHONE_NUMBER,
+    //       }),
+    //     }
+    //   );
+    //   history.push("/ordered");
+    // }
   };
 
   return (
